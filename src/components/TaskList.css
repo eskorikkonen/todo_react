@@ -1,0 +1,16 @@
+.TaskList {
+    padding: 1rem;
+    border: 3px solid #eee;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    button {
+        height: calc(2rem + 2vmin);
+        font-size: calc(10px + 2vmin);
+        margin: 0 1rem;
+    }
+}
