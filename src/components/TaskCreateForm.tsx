@@ -3,7 +3,7 @@ import './TaskCreateForm.css'
 import { Task } from '../lib/types';
 
 interface TaskCreateFormProps {
-    createNewTask: (task: Task) => void,
+    createNewTask: (task: Task) => Promise<boolean>,
 }
 
 function TaskCreateForm({ createNewTask }: TaskCreateFormProps) {
@@ -11,10 +11,13 @@ function TaskCreateForm({ createNewTask }: TaskCreateFormProps) {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
         createNewTask({
             id: crypto.randomUUID(),
             description,
-        })
+        }).then((success) => {
+            if (success) setDescription('');
+        });
     }
 
     return (
@@ -26,6 +29,7 @@ function TaskCreateForm({ createNewTask }: TaskCreateFormProps) {
                 placeholder='Enter task description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                required
             />
             <input type="submit" value="Create" />
         </form>

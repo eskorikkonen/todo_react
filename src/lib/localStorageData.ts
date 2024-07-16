@@ -1,6 +1,7 @@
 import { Task } from '../lib/types';
 
 // Comments on this storage method: 
+// - From earlier version - replaced with indexedDBData but left here for posterity
 // - Intended as an example of making a standalone react app without any backend stuff. 
 // - Storing the tasks in a single localStorage item is a bit nasty - but this is just for demonstration.
 // - Would be nicer to use indexedDB anyhow.

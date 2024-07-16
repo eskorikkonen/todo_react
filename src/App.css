@@ -1,8 +1,10 @@
 .App {
   max-width: 60rem;
   margin: auto;
-  padding: 1rem;
+  padding: 2rem;
   background-color: #333;
+  border-right: 2px solid #aaa;
+  border-left: 2px solid #aaa;
   color: #eee;
   min-height: 100vh;
   display: flex;
