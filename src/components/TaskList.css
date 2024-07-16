@@ -6,11 +6,34 @@
 
     li {
         margin-bottom: 0.5rem;
-    }
+        list-style: none;
+        flex-direction: row;
+        align-items: center;
 
-    button {
-        height: calc(2rem + 2vmin);
-        font-size: calc(10px + 2vmin);
-        margin: 0 1rem;
+        .content {
+            display: inline-block;
+            height: calc(2rem + 1vmin);
+            cursor: pointer;
+
+            .completed {
+                text-decoration: line-through;
+            }
+
+            .status-completed, .status-waiting {
+                margin-right: 1rem;
+            }
+    
+            .status-completed {
+                color: lightgreen;
+            }
+
+        }
+
+        button {
+            height: calc(2rem + 1vmin);
+            font-size: calc(10px + 1vmin);
+            margin: 0 1rem;
+            vertical-align: middle;
+        }
     }
 }

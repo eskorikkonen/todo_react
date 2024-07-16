@@ -5,9 +5,10 @@ import { Task } from '../lib/types';
 interface TaskListProps {
   tasks: Task[],
   removeTask: (id: string) => void,
+  toggleCompletion: (task: Task) => void,
 }
 
-function TaskList({ tasks, removeTask}: TaskListProps) {
+function TaskList({ tasks, removeTask, toggleCompletion}: TaskListProps) {
   return (
     <div className="TaskList">
       <ul>
@@ -18,7 +19,17 @@ function TaskList({ tasks, removeTask}: TaskListProps) {
         }
         { tasks && tasks.map(task => (
           <li key={task.id}>
-            {task.description} <button onClick={() => removeTask(task.id) }>Delete</button>
+            <div className="content" onClick={() => toggleCompletion(task)}>
+              { task.completed ? 
+                <span className="status-completed">&#x2611;</span>
+                :
+                <span className="status-waiting">&#x2610;</span>
+              }
+
+              <span className={task.completed ? 'completed' : ''}>{task.description}</span>
+            <button onClick={(e) => { e.stopPropagation(); removeTask(task.id); } }>Delete</button>
+
+            </div>
           </li>
         ))}
       </ul>

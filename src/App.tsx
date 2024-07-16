@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import TaskList from './components/TaskList';
 import TaskCreateForm from './components/TaskCreateForm';
-import { initDB, listTasks, addTask, deleteTask } from './lib/indexedDBData';
+import { initDB, listTasks, upsertTask, deleteTask } from './lib/indexedDBData';
 import { Task } from './lib/types';
 
 function App() {
@@ -28,9 +28,14 @@ function App() {
       .catch(console.error);
   }
 
+  const toggleCompletion = (task: Task) => {
+    upsertTask({ ...task, completed: !task.completed })
+        .then(() => refreshTasks());
+  }
+
   const createNewTask = (task: Task): Promise<boolean> => {
     return new Promise((resolve) => {
-      addTask(task)
+      upsertTask(task)
         .then(() => refreshTasks().then(() => resolve(true)))
         .catch(error => {
           console.error(error);
@@ -45,11 +50,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Taskmaster</h1>
-        <p>(not affiliated with the Taskmaster TV-series)</p>
+        <p>(Not affiliated with the Taskmaster TV-series.)</p>
       </header>
       <main>
         <TaskCreateForm createNewTask={createNewTask} />
-        <TaskList tasks={tasks} removeTask={removeTask} />
+        <TaskList tasks={tasks} removeTask={removeTask} toggleCompletion={toggleCompletion} />
       </main>
     </div>
   );

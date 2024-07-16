@@ -23,7 +23,7 @@ const initDB = (): Promise<boolean> => {
     };
 
     request.onsuccess = (event) => {
-      db = (event.target as any).result
+      db = (event.target as any).result;
       version = db.version;
       console.log('request.onsuccess - initDB', version);
       resolve(true);
@@ -35,7 +35,7 @@ const initDB = (): Promise<boolean> => {
   });
 }
 
-const addTask = (data: Task): Promise<Task | string | null> => {
+const upsertTask = (data: Task): Promise<Task | string | null> => {
   return new Promise((resolve) => {
     request = indexedDB.open(dbName, version);
 
@@ -43,7 +43,7 @@ const addTask = (data: Task): Promise<Task | string | null> => {
       db = request.result;
       const tx = db.transaction(storeName, 'readwrite');
       const store = tx.objectStore(storeName);
-      store.add(data);
+      store.put(data);
       resolve(data);
     };
 
@@ -96,4 +96,4 @@ const deleteTask = (key: string): Promise<boolean> => {
   });
 };
 
-export { initDB, listTasks, addTask, deleteTask }; 
+export { initDB, listTasks, upsertTask, deleteTask }; 

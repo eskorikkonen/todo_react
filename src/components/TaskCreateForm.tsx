@@ -11,10 +11,11 @@ function TaskCreateForm({ createNewTask }: TaskCreateFormProps) {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
         createNewTask({
             id: crypto.randomUUID(),
             description,
+            completed: false,
         }).then((success) => {
             if (success) setDescription('');
         });
